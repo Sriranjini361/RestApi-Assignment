@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  mysql-container:
+    image: mysql:latest
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: 9994570668@sri
+      MYSQL_DATABASE: app
+    networks:
+      - my-network
+
+  go-app:
+    build: .
+    ports:
+      - "8081:8081"
+    environment:
+      DB_HOST: 172.19.0.2
+      DB_USER: root
+      DB_PASSWORD: 9994570668@sri
+      DB_NAME: app
+    depends_on:
+      - mysql-container
+    networks:
+      - my-network
+    
+
+networks:
+  my-network:
+    driver: bridge
